@@ -41,14 +41,14 @@
  */
 
 typedef CL_API_ENTRY cl_int (CL_API_CALL *pfn_clIcdGetPlatformIDs)(
-    cl_uint num_entries, 
-    cl_platform_id *platforms, 
+    cl_uint num_entries,
+    cl_platform_id *platforms,
     cl_uint *num_platforms) CL_API_SUFFIX__VERSION_1_0;
 
 typedef CL_API_ENTRY cl_int (CL_API_CALL *pfn_clGetPlatformInfo)(
-    cl_platform_id   platform, 
+    cl_platform_id   platform,
     cl_platform_info param_name,
-    size_t           param_value_size, 
+    size_t           param_value_size,
     void *           param_value,
     size_t *         param_value_size_ret) CL_API_SUFFIX__VERSION_1_0;
 
@@ -57,7 +57,7 @@ typedef CL_API_ENTRY void *(CL_API_CALL *pfn_clGetExtensionFunctionAddress)(
 
 typedef struct KHRicdVendorRec KHRicdVendor;
 
-/* 
+/*
  * KHRicdVendor
  *
  * Data for a single ICD vendor platform.
@@ -83,7 +83,7 @@ struct KHRicdVendorRec
 // the global state
 extern KHRicdVendor * khrIcdVendors;
 
-/* 
+/*
  * khrIcd interface
  */
 
@@ -94,7 +94,7 @@ extern KHRicdVendor * khrIcdVendors;
 // API (e.g, getPlatformIDs, etc).
 void khrIcdInitialize(void);
 
-// go through the list of vendors (in /etc/OpenCL.conf or through 
+// go through the list of vendors (in /etc/OpenCL.conf or through
 // the registry) and call khrIcdVendorAdd for each vendor encountered
 // n.b, this call is OS-specific
 void khrIcdOsVendorsEnumerateOnce(void);
@@ -119,11 +119,11 @@ void khrIcdOsLibraryUnload(void *library);
 
 // parse properties and determine the platform to use from them
 void khrIcdContextPropertiesGetPlatform(
-    const cl_context_properties *properties, 
+    const cl_context_properties *properties,
     cl_platform_id *outPlatform);
 
 // internal tracing macros
-#if 0
+#if 1
     #include <stdio.h>
     #define KHR_ICD_TRACE(...) \
     do \
@@ -165,7 +165,7 @@ void khrIcdContextPropertiesGetPlatform(
         } \
     } while (0)
 
-// if handle is NULL then set errcode_ret to invalid_handle_error and return NULL 
+// if handle is NULL then set errcode_ret to invalid_handle_error and return NULL
 // (NULL being an invalid handle)
 #define KHR_ICD_VALIDATE_HANDLE_RETURN_HANDLE(handle,invalid_handle_error) \
     do \
