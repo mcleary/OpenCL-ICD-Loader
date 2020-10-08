@@ -409,7 +409,7 @@ typedef cl_uint cl_diagnostics_verbose_level;
 * cl_intel_unified_shared_memory extension *
 ********************************************/
 
-/* These APIs are in sync with Revision O of the cl_intel_unified_shared_memory spec! */
+/* These APIs are in sync with Revision Q of the cl_intel_unified_shared_memory spec! */
 
 #define cl_intel_unified_shared_memory 1
 
@@ -428,7 +428,7 @@ typedef cl_bitfield cl_device_unified_shared_memory_capabilities_intel;
 #define CL_UNIFIED_SHARED_MEMORY_CONCURRENT_ACCESS_INTEL        (1 << 2)
 #define CL_UNIFIED_SHARED_MEMORY_CONCURRENT_ATOMIC_ACCESS_INTEL (1 << 3)
 
-typedef cl_bitfield cl_mem_properties_intel;
+typedef cl_properties cl_mem_properties_intel;
 
 /* cl_mem_properties_intel */
 #define CL_MEM_ALLOC_FLAGS_INTEL        0x4195
@@ -531,6 +531,16 @@ clMemFreeINTEL(
 
 typedef CL_API_ENTRY cl_int (CL_API_CALL *
 clMemFreeINTEL_fn)(
+            cl_context context,
+            void* ptr);
+
+extern CL_API_ENTRY cl_int CL_API_CALL
+clMemBlockingFreeINTEL(
+            cl_context context,
+            void* ptr);
+
+typedef CL_API_ENTRY cl_int (CL_API_CALL *
+clMemBlockingFreeINTEL_fn)(
             cl_context context,
             void* ptr);
 
@@ -674,6 +684,45 @@ clEnqueueMemAdviseINTEL_fn)(
             cl_uint num_events_in_wait_list,
             const cl_event* event_wait_list,
             cl_event* event);
+
+/***************************************************
+* cl_intel_create_buffer_with_properties extension *
+****************************************************/
+
+#define cl_intel_create_buffer_with_properties 1
+
+extern CL_API_ENTRY cl_mem CL_API_CALL
+clCreateBufferWithPropertiesINTEL(
+    cl_context   context,
+    const cl_mem_properties_intel* properties,
+    cl_mem_flags flags,
+    size_t       size,
+    void *       host_ptr,
+    cl_int *     errcode_ret) CL_EXT_SUFFIX__VERSION_1_0;
+
+typedef CL_API_ENTRY cl_mem (CL_API_CALL *
+clCreateBufferWithPropertiesINTEL_fn)(
+    cl_context   context,
+    const cl_mem_properties_intel* properties,
+    cl_mem_flags flags,
+    size_t       size,
+    void *       host_ptr,
+    cl_int *     errcode_ret) CL_EXT_SUFFIX__VERSION_1_0;
+
+/******************************************
+* cl_intel_mem_channel_property extension *
+*******************************************/
+
+#define CL_MEM_CHANNEL_INTEL            0x4213
+
+/*********************************
+* cl_intel_mem_force_host_memory *
+**********************************/
+
+#define cl_intel_mem_force_host_memory 1
+
+/* cl_mem_flags */
+#define CL_MEM_FORCE_HOST_MEMORY_INTEL                      (1 << 20)
 
 #ifdef __cplusplus
 }
